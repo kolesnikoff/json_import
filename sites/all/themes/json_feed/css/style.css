@@ -1,0 +1,26 @@
+.json-feed-import-form {
+  margin-bottom: 10px;
+}
+
+.json-feed-import-config {
+  color: #333;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.view-stories .publish-date,
+.view-stories .views-field-created,
+.node-story .publish-date {
+  color: #333;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+
+.node-story .field-name-body {
+  margin-bottom: 5px;
+}
+
+.node-story .source-link {
+  font-style: italic;
+}

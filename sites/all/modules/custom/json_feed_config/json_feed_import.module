@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Provides import form and render list with imported items.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function json_feed_import_theme() {
+  $templates_path = drupal_get_path('module', 'json_feed_import') . '/templates';
+  $items = array();
+
+  $items['json_feed_import_page'] = array(
+    'arguments' => array('form' => '', 'results' => ''),
+    'path' => $templates_path,
+    'template' => 'json_feed_import-page',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function json_feed_import_menu() {
+  $items = array();
+
+  $items['json_feed_import'] = array(
+    'title' => 'JSON Feed Import',
+    'page callback' => 'json_feed_import_results_page',
+    'access arguments' => array('authenticated user'),
+  );
+
+  return $items;
+}
+
+
+/**
+ * Menu callback provides the import form and list of imported nodes.
+ *
+ * @return string
+ */
+function json_feed_import_results_page() {
+  // Initialize importer.
+  // TODO: move importer ID into settings.
+  $importer = feeds_importer_load('digg_top_stories');
+
+  // Include file with import form functionality.
+  module_load_include('inc', 'feeds', 'feeds.pages');
+  $form = drupal_get_form('feeds_import_form', $importer);
+
+  // Render import form.
+  $rendered_form = drupal_render($form);
+
+  // Render views block with list of imported items.
+  $results = views_embed_view('stories', 'imported_stories');
+
+  // Render the page.
+  return theme('json_feed_import_page', array('form' => $rendered_form, 'results' => $results));
+}

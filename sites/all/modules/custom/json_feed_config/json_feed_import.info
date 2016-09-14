@@ -1,0 +1,5 @@
+name = JSON Feed Import
+description = Provides pretty form upon Feeds import functionality
+core = 7.x
+package = JSON Feed
+dependencies[] = json_feed
